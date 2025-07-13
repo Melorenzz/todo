@@ -6,8 +6,8 @@ const filterInputText = document.getElementById('filterInputText');
 const modal = document.getElementById('modal');
 const editTaskInput = document.getElementById('editTaskInput');
 const editTaskSubmit = document.getElementById('editTaskSubmit');
-document.getElementById('sortDate').addEventListener('change', getTasks);
-document.getElementById('sortPriority').addEventListener('change', getTasks);
+// document.getElementById('sortDate').addEventListener('change', getTasks);
+// document.getElementById('sortPriority').addEventListener('change', getTasks);
 
 const tasks = [];
 let taskCount = 0;
@@ -77,6 +77,34 @@ function increasePriority(id) {
     getTasks();
 }
 
+let sortDate = '';
+let sortPriority = '';
+
+function toggleDropdown(type) {
+    const dropdown = document.getElementById(`dropdown-${type}`);
+    dropdown.classList.toggle('hidden');
+    document.addEventListener('click', function handler(e) {
+        if (!e.target.closest(`#custom${capitalize(type)}Select`)) {
+            dropdown.classList.add('hidden');
+            document.removeEventListener('click', handler);
+        }
+    });
+}
+
+function selectOption(type, value, label) {
+    if (type === 'date') {
+        sortDate = value;
+        document.getElementById('selectedDate').innerText = label;
+    } else if (type === 'priority') {
+        sortPriority = value;
+        document.getElementById('selectedPriority').innerText = label;
+    }
+    getTasks();
+}
+
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
 
 
@@ -85,17 +113,13 @@ function getTasks() {
 
     let sortedTasks = [...tasks];
 
-    const sortDate = document.getElementById('sortDate').value;
-    const sortPriority = document.getElementById('sortPriority').value;
 
-    // сортировка по дате
     if (sortDate === 'asc') {
         sortedTasks.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
     } else if (sortDate === 'desc') {
         sortedTasks.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
-    // сортировка по приоритету
     if (sortPriority === 'asc') {
         sortedTasks.sort((a, b) => a.priority - b.priority);
     } else if (sortPriority === 'desc') {

@@ -90,19 +90,43 @@
     focus:shadow-lg
   "
     />
-    <div class="grid mb-6 [grid-template-columns:repeat(auto-fit,_minmax(0,_1fr))] gap-2">
-        <select id="sortDate" class="bg-white/10 text-white p-2 rounded">
-            <option value="">Сортировка по дате</option>
-            <option value="asc">Сначала старые</option>
-            <option value="desc">Сначала новые</option>
-        </select>
+    <div class="grid mb-6 grid-cols-1 sm:grid-cols-2 gap-2">
+        <!-- Custom Select for Date -->
+        <div class="relative group" id="customDateSelect">
+            <button
+                    class="w-full bg-white/10 text-white p-2 rounded flex justify-between items-center"
+                    onclick="toggleDropdown('date')"
+            >
+                <span id="selectedDate">Sort by date</span>
+                <svg class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <ul class="hidden absolute z-10 w-full mt-1 bg-white/10 rounded text-white overflow-hidden shadow-lg" id="dropdown-date">
+                <li onclick="selectOption('date', '', 'Сортировка по дате')" class="p-2 hover:bg-white/20 cursor-pointer">Сортировка по дате</li>
+                <li onclick="selectOption('date', 'asc', 'Сначала старые')" class="p-2 hover:bg-white/20 cursor-pointer">Сначала старые</li>
+                <li onclick="selectOption('date', 'desc', 'Сначала новые')" class="p-2 hover:bg-white/20 cursor-pointer">Сначала новые</li>
+            </ul>
+        </div>
 
-        <select id="sortPriority" class="bg-white/10 text-white p-2 rounded">
-            <option value="">Сортировка по приоритету</option>
-            <option value="asc">Сначала низкий</option>
-            <option value="desc">Сначала высокий</option>
-        </select>
+        <div class="relative group" id="customPrioritySelect">
+            <button
+                    class="w-full bg-white/10 text-white p-2 rounded flex justify-between items-center"
+                    onclick="toggleDropdown('priority')"
+            >
+                <span id="selectedPriority">Sort by priority</span>
+                <svg class="w-4 h-4 ml-2 transform group-hover:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+            <ul class="hidden absolute z-10 w-full mt-1 bg-white/10 rounded text-white overflow-hidden shadow-lg" id="dropdown-priority">
+                <li onclick="selectOption('priority', '', 'Сортировка по приоритету')" class="p-2 hover:bg-white/20 cursor-pointer">Сортировка по приоритету</li>
+                <li onclick="selectOption('priority', 'asc', 'Сначала низкий')" class="p-2 hover:bg-white/20 cursor-pointer">Сначала низкий</li>
+                <li onclick="selectOption('priority', 'desc', 'Сначала высокий')" class="p-2 hover:bg-white/20 cursor-pointer">Сначала высокий</li>
+            </ul>
+        </div>
     </div>
+
 
 
 
